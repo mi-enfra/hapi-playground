@@ -1,0 +1,18 @@
+version: '2.1'
+
+services:
+  server:
+    command: "node index.js"
+    image: node:14
+    environment:
+      VIRTUAL_HOST: api.local
+    expose:
+      - 3000
+    volumes:
+      - ./:/home/node/app
+    working_dir: /home/node/app
+
+networks:
+  default:
+    external:
+      name: enfrausa
