@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
   server:
-    command: "node index.js"
+    command: "node node_modules/nodemon/bin/nodemon.js index.js"
     image: node:14
     environment:
       VIRTUAL_HOST: api.local
