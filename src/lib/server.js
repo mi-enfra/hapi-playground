@@ -3,6 +3,9 @@
 require('dotenv').config();
 const Hapi = require('@hapi/hapi');
 
+// Route handlers
+const NotFound = require('./../route/not-found.js');
+
 const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST
@@ -21,11 +24,13 @@ server.route({
 
 exports.init = async () => {
     await server.initialize();
+    await server.register(NotFound);
     return server;
 };
 
 exports.start = async () => {
     await server.start();
+    await server.register(NotFound);
     console.log(`Server running at: ${server.info.uri}`);
     return server;
 };
