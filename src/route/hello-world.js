@@ -6,13 +6,16 @@ exports.plugin = {
     register: async function (server, options) {
         server.route({
             method: 'GET',
-            path: '/hello',
-            handler: (request, h) => {
-                return h.response({
-                        'hello': 'world'
-                    })
-                    .code(200);
-            }
+            path: '/hello/{name?}',
+            handler: prepareMessage
         });
     }
 };
+
+const prepareMessage = (request, h) => {
+    const user = request.params.name || 'stranger';
+    return h.response({
+            'hello': user
+        })
+        .code(200);
+}
