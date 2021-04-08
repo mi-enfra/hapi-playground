@@ -5,32 +5,27 @@ const Hapi = require('@hapi/hapi');
 
 // Route handlers
 const NotFound = require('./../route/not-found.js');
+const HelloWorld = require('./../route/hello-world.js');
 
 const server = Hapi.server({
     port: process.env.PORT,
     host: process.env.HOST
 });
 
-server.route({
-    method: 'GET',
-    path: '/hello/',
-    handler: (request, h) => {
-        return h.response({
-                'hello': 'world'
-            })
-            .code(200);
-    }
-});
+async function setRoutes() {
+    await server.register(HelloWorld);
+    await server.register(NotFound);
+}
 
 exports.init = async () => {
     await server.initialize();
-    await server.register(NotFound);
+    setRoutes();
     return server;
 };
 
 exports.start = async () => {
     await server.start();
-    await server.register(NotFound);
+    setRoutes();
     console.log(`Server running at: ${server.info.uri}`);
     return server;
 };
