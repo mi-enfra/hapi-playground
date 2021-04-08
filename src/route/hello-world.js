@@ -6,7 +6,7 @@ exports.plugin = {
     register: async function (server, options) {
         server.route({
             method: 'GET',
-            path: '/hello/',
+            path: '/hello',
             handler: (request, h) => {
                 return h.response({
                         'hello': 'world'

@@ -12,6 +12,12 @@ const server = Hapi.server({
     host: process.env.HOST
 });
 
+// Remove trailing slashes
+server.ext('onRequest', function (request, h) {
+    request.setUrl(request.url, true);
+    return h.continue;
+});
+
 async function setRoutes() {
     await server.register(HelloWorld);
     await server.register(NotFound);
