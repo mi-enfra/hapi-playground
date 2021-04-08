@@ -14,8 +14,10 @@ exports.plugin = {
 
 const prepareMessage = (request, h) => {
     const user = request.params.name || 'stranger';
+    const query = request.query || {};
     return h.response({
-            'hello': user
+            'hello': user,
+            query
         })
         .code(200);
 }
